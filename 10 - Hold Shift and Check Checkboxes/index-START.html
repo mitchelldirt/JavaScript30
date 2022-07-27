@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Hold Shift to Check Multiple Checkboxes</title>
 </head>
+
 <body>
   <style>
-
     html {
       font-family: sans-serif;
       background: #ffc600;
@@ -17,7 +18,7 @@
       margin: 50px auto;
       background: white;
       border-radius: 5px;
-      box-shadow: 10px 10px 0 rgba(0,0,0,0.1);
+      box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.1);
     }
 
     .item {
@@ -30,7 +31,7 @@
       border-bottom: 0;
     }
 
-    input:checked + p {
+    input:checked+p {
       background: #F9F9F9;
       text-decoration: line-through;
     }
@@ -44,13 +45,13 @@
       padding: 20px;
       transition: background 0.2s;
       flex: 1;
-      font-family:'helvetica neue';
+      font-family: 'helvetica neue';
       font-size: 20px;
       font-weight: 200;
       border-left: 1px solid #D1E2FF;
     }
   </style>
-   <!--
+  <!--
    The following is a common layout you would see in an email client.
 
    When a user clicks a checkbox, holds Shift, and then clicks another checkbox a few rows down, all the checkboxes inbetween those two checkboxes should be checked.
@@ -95,7 +96,35 @@
     </div>
   </div>
 
-<script>
-</script>
+  <script>
+
+    // THIS IS AN ACCEPTABLE SOLUTION
+    // WES SOLUTION IS BETTER THOUGH SO CHECK THAT!
+    
+    const inputs = document.querySelectorAll('input')
+    const inputsArray = [...inputs]
+    let shiftDown = false;
+    let lastCheck = null;
+
+    function lowerHigher(index1, index2) {
+      if (index1 < index2) {
+        return [index1, index2]
+      }
+      return [index2, index1]
+    }
+
+    inputsArray.forEach(input => input.addEventListener('click', checkBoxes))
+    function checkBoxes(e) {
+      let currentCheck = inputsArray.indexOf(this);
+      let indexes = lowerHigher(lastCheck, currentCheck)
+      if (lastCheck !== null && e.shiftKey) {
+        for (let i = indexes[0]; i < indexes[1]; i++) {
+          inputsArray[i].checked = true
+        }
+      }
+      lastCheck = inputsArray.indexOf(this);
+    }
+  </script>
 </body>
+
 </html>
