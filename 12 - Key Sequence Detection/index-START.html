@@ -7,15 +7,6 @@
 </head>
 <body>
 <script>
-  const pressedArray = [];
-  const konamis = 'ArrowUp ArrowUp ArrowDown ArrowDown ArrowLeft ArrowRight ArrowLeft ArrowRight a b Enter'
-  window.addEventListener('keyup', (e) => {
-    pressedArray.push(e.key);
-    pressedArray.splice(-konamis - 1, pressedArray.length - konamis.length);
-      if (pressedArray.join(' ').includes(konamis)) {
-        cornify_add()
-      }
-  })
 </script>
 </body>
 </html>
